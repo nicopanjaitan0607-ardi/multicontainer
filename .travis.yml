@@ -1,0 +1,26 @@
+sudo: required
+services:
+  - docker
+
+
+before install:
+  - docker build -t nicopanjaitan0607-ardi/multicontainer -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true nicopanjaitan0607-ardi/multicontainer npm test
+
+after_success:
+  - docker build -t nicopanjaitan0607-ardi/multi-client ./client
+  - docker build -t nicopanjaitan0607-ardi/multi-nginx ./nginx
+  - docker build -t nicopanjaitan0607-ardi/multi-server ./server
+  - docker build -t nicopanjaitan0607-ardi/multi-worker ./worker
+#login
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+#push to docker hub
+  - docker push nicopanjaitan0607-ardi/multi-client
+  - docker push nicopanjaitan0607-ardi/multi-nginx
+  - docker push nicopanjaitan0607-ardi/multi-server
+  - docker push nicopanjaitan0607-ardi/multi-worker
+
+

@@ -7,7 +7,7 @@ before install:
   - docker build -t ce318002/multicontainer -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true nicopanjaitan0607-ardi/multicontainer npm test
+  - docker run -e CI=true ce318002/multicontainer npm test
 
 after_success:
   - docker build -t ce318002/multi-client ./client
@@ -18,9 +18,9 @@ after_success:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 
 #push to docker hub
-  - docker push nicopanjaitan0607-ardi/multi-client
-  - docker push nicopanjaitan0607-ardi/multi-nginx
-  - docker push nicopanjaitan0607-ardi/multi-server
-  - docker push nicopanjaitan0607-ardi/multi-worker
+  - docker push ce318002/multi-client
+  - docker push ce318002/multi-nginx
+  - docker push ce318002/multi-server
+  - docker push ce318002/multi-worker
 
 

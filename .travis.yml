@@ -4,16 +4,16 @@ services:
 
 
 before install:
-  - docker build -t nicopanjaitan0607-ardi/multicontainer -f ./client/Dockerfile.dev ./client
+  - docker build -t ce318002/multicontainer -f ./client/Dockerfile.dev ./client
 
 script:
   - docker run -e CI=true nicopanjaitan0607-ardi/multicontainer npm test
 
 after_success:
-  - docker build -t nicopanjaitan0607-ardi/multi-client ./client
-  - docker build -t nicopanjaitan0607-ardi/multi-nginx ./nginx
-  - docker build -t nicopanjaitan0607-ardi/multi-server ./server
-  - docker build -t nicopanjaitan0607-ardi/multi-worker ./worker
+  - docker build -t ce318002/multi-client ./client
+  - docker build -t ce318002/multi-nginx ./nginx
+  - docker build -t ce318002/multi-server ./server
+  - docker build -t ce318002/multi-worker ./worker
 #login
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 
